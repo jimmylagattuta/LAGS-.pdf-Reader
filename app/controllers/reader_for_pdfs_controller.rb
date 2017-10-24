@@ -68,19 +68,22 @@ class ReaderForPdfsController < ApplicationController
     	}
 
     	@criteria.each_with_index do |patient, index|
-    		puts index.to_s + ". ID: " + patient['Patient_ID'] + " Name: " + patient['Name'] + " Accession: " + patient['Accession']
-    		puts "Tramadol: " + patient['Tramadol_HCL']
-    		if patient['INCONSISTENT']
-	    		puts "INCONSISTENCIES"
-    			puts "INCONSISTENT ONE: " + patient["INCONSISTENT"]
-    			if patient["INCONSISTENT_TWO"]
-    				puts "INCONSISTENT_TWO: " + patient["INCONSISTENT_TWO"]
-    				if patient["INCONSISTENT_THREE"]
-    					puts "INCONSISTENT_THREE: " + patient["INCONSISTENT_THREE"]
-    					if patient["INCONSISTENT_FOUR"]
-    						puts "INCONSISTENT_FOUR: " + patient["INCONSISTENT_FOUR"]
-    						if patient["INCONSISTENT_FIVE"] 
-    							puts "INCONSISTENT_FIVE: " + patient["INCONSISTENT_FIVE"]
+    		if patient['Tramadol_HCL'] == 'Negative'
+    		else
+    			puts index.to_s + ". ID: " + patient['Patient_ID'] + " Name: " + patient['Name'] + " Accession: " + patient['Accession']
+    			puts "Tramadol: " + patient['Tramadol_HCL']
+   		 		if patient['INCONSISTENT']
+	    			puts "INCONSISTENCIES"
+    				puts "INCONSISTENT ONE: " + patient["INCONSISTENT"]
+    				if patient["INCONSISTENT_TWO"]
+    					puts "INCONSISTENT_TWO: " + patient["INCONSISTENT_TWO"]
+    					if patient["INCONSISTENT_THREE"]
+    						puts "INCONSISTENT_THREE: " + patient["INCONSISTENT_THREE"]
+    						if patient["INCONSISTENT_FOUR"]
+    							puts "INCONSISTENT_FOUR: " + patient["INCONSISTENT_FOUR"]
+    							if patient["INCONSISTENT_FIVE"] 
+    								puts "INCONSISTENT_FIVE: " + patient["INCONSISTENT_FIVE"]
+    							end
     						end
     					end
     				end
