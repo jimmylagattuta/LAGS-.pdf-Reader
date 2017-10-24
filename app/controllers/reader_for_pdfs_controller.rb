@@ -10,7 +10,7 @@ class ReaderForPdfsController < ApplicationController
 		count = 0
 		Dir.foreach("test_for_pdf") {|x| 
 			new_path = "test_for_pdf/" + x
-			if new_path.starts_with?('test_for_pdf/viewresults_4')
+			if new_path.starts_with?('test_for_pdf/viewresults')
 		    	File.open(new_path, "rb") do |io|
 		    		@text = []
 		      		reader = PDF::Reader.new(io)
@@ -66,29 +66,35 @@ class ReaderForPdfsController < ApplicationController
 		    	end
 	    	end
     	}
-
+    	@new_criteria = []
     	@criteria.each_with_index do |patient, index|
-    		if patient['Tramadol_HCL'] == 'Negative'
-    		else
-    			puts index.to_s + ". ID: " + patient['Patient_ID'] + " Name: " + patient['Name'] + " Accession: " + patient['Accession']
-    			puts "Tramadol: " + patient['Tramadol_HCL']
-   		 		if patient['INCONSISTENT']
-	    			puts "INCONSISTENCIES"
-    				puts "INCONSISTENT ONE: " + patient["INCONSISTENT"]
-    				if patient["INCONSISTENT_TWO"]
-    					puts "INCONSISTENT_TWO: " + patient["INCONSISTENT_TWO"]
-    					if patient["INCONSISTENT_THREE"]
-    						puts "INCONSISTENT_THREE: " + patient["INCONSISTENT_THREE"]
-    						if patient["INCONSISTENT_FOUR"]
-    							puts "INCONSISTENT_FOUR: " + patient["INCONSISTENT_FOUR"]
-    							if patient["INCONSISTENT_FIVE"] 
-    								puts "INCONSISTENT_FIVE: " + patient["INCONSISTENT_FIVE"]
-    							end
-    						end
-    					end
+   		 		if patient['Tramadol_HCL']
+   		 			if patient['Tramadol_HCL'] != 'Negative'
+   		 				if patient['INCONSISTENT']
+	   		 				puts patient['Name'] + " ID: " + patient['Patient_ID'] + " Accession: " + patient['Accession'] + " Tramadol: " + patient['Tramadol_HCL'] 
+	   		 				@new_criteria << patient
+		    				# puts "ID: " + patient['Patient_ID']
+		    				# puts "Name: " + patient['Name']
+		    				# puts "Accession: " + patient['Accession']
+		    				# puts "Tramadol: " + patient['Tramadol_HCL']
+		    				puts "INCONSISTENCIES"
+	    					puts "INCONSISTENCY ONE: " + patient["INCONSISTENT"]
+	    					if patient["INCONSISTENT_TWO"]
+	    						puts "INCONSISTENCY_TWO: " + patient["INCONSISTENT_TWO"]
+	    					end
+	   						if patient["INCONSISTENT_THREE"]
+	   							puts "INCONSISTENCY THREE: " + patient["INCONSISTENT_THREE"]
+	   						end
+	    					if patient["INCONSISTENT_FOUR"]
+	    						puts "INCONSISTENCY FOUR: " + patient["INCONSISTENT_FOUR"]
+	    					end
+	    					if patient["INCONSISTENT_FIVE"] 
+	    						puts "INCONSISTENCY FIVE: " + patient["INCONSISTENT_FIVE"]
+	    					end
+   		 				end
     				end
+
     			end
-    		end
     	end
 
 		render 'index.html.erb'
